@@ -4,6 +4,7 @@ import { useTodo } from '../contexts';
 function TodoItem({ todo }) {
 
     const [isTodoEditable, setIsTodoEditable] = useState(false)
+    const [status, setStatus] = useState(false)
     const [todoMsg, setTodoMsg] = useState(todo.todo)
 
     const {updateTodo, deleteTodo, toggleComplete} = useTodo()
@@ -15,6 +16,7 @@ function TodoItem({ todo }) {
 
     const toggleCompleted = () => {
         toggleComplete(todo.id)
+        setStatus(!status)
     }
 
     return (
@@ -38,6 +40,12 @@ function TodoItem({ todo }) {
                 onChange={(e) => setTodoMsg(e.target.value)}
                 readOnly={!isTodoEditable}
             />
+            {/* Status */}
+            <div 
+            className='inline-flex w-20 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-purple-500 text-white'
+            >
+                {status ? "Completed": "Pending"}
+            </div>
             {/* Edit, Save Button */}
             <button
                 className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
